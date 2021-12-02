@@ -1,6 +1,6 @@
 pragma solidity ^0.5.5;
 
-import "./KitsuenCoin.sol";
+import "./KitsuneCoin.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/crowdsale/Crowdsale.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/crowdsale/emission/MintedCrowdsale.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/crowdsale/validation/CappedCrowdsale.sol";
@@ -8,16 +8,16 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/crowdsale/distribution/RefundablePostDeliveryCrowdsale.sol";
 
 
-// Bootstrap the KitsuenCoinCrowdsale contract by inheriting the following OpenZeppelin:
+// Bootstrap the KitsuneCoinCrowdsale contract by inheriting the following OpenZeppelin:
 // * Crowdsale
 // * MintedCrowdsale
-contract KitsuenCoinCrowdsale is Crowdsale, MintedCrowdsale, CappedCrowdsale, TimedCrowdsale, RefundablePostDeliveryCrowdsale {
+contract KitsuneCoinCrowdsale is Crowdsale, MintedCrowdsale, CappedCrowdsale, TimedCrowdsale, RefundablePostDeliveryCrowdsale {
     
     // Provide parameters for all of the features of your crowdsale, such as the `rate`, `wallet` for fundraising, and `token`.
     constructor(
         uint256 rate, // rate in TKNbits
         address payable wallet, // sale beneficiary
-        KitsuenCoin token, // the KaseiCoin itself that the KitsuenCoinCrowdsale will work with
+        KitsuneCoin token, // the KitsuneCoin itself that the KitsuneCoinCrowdsale will work with
         uint goal, // the crowdsale goal
         uint open, // the crowdsale opening time
         uint close // the crowdsale closing time
@@ -32,11 +32,11 @@ contract KitsuenCoinCrowdsale is Crowdsale, MintedCrowdsale, CappedCrowdsale, Ti
 }
 
 
-contract KitsuenCoinCrowdsaleDeployer {
-    // Create an `address public` variable called `Kitsuen_token_address`.
-    address public Kitsuen_token_address;
-    // Create an `address public` variable called `Kitsuen_crowdsale_address`.
-    address public Kitsuen_crowdsale_address;
+contract KitsuneCoinCrowdsaleDeployer {
+    // Create an `address public` variable called `KitsuneCoin_token_address`.
+    address public KitsuneCoin_token_address;
+    // Create an `address public` variable called `KitsuneCoin_crowdsale_address`.
+    address public KitsuneCoin_crowdsale_address;
 
     // Add the constructor.
     constructor(
@@ -46,21 +46,21 @@ contract KitsuenCoinCrowdsaleDeployer {
         uint goal
     ) public {
         // Create a new instance of the KaseiCoin contract.
-        KitsuenCoin token = new KitsuenCoin(name, symbol, 0);
+        KitsuneCoin token = new KitsuneCoin(name, symbol, 0);
         
-        // Assign the token contract's address to the `kasei_token_address` variable.
-        Kitsuen_token_address = address(token);
+        // Assign the token contract's address to the `KitsuneCoin_token_address` variable.
+        KitsuneCoin_token_address = address(token);
 
-        // Create a new instance of the `KaseiCoinCrowdsale` contract
-        KitsuenCoinCrowdsale Kitsuen_crowdsale = new KitsuenCoinCrowdsale (1, wallet, token, goal, now, now + 24 weeks);
+        // Create a new instance of the `KitsuneCoinCrowdsale` contract
+        KitsuneCoin_crowdsale = new KitsuneCoinCrowdsale (1, wallet, token, goal, now, now + 24 weeks);
             
-        // Aassign the `KitsuenCoinCrowdsale` contract's address to the `Kitsuen_crowdsale_address` variable.
-        Kitsuen_crowdsale_address = address(Kitsuen_crowdsale);
+        // Aassign the `KitsuneCoinCrowdsale` contract's address to the `KitsuneCoin_crowdsale_address` variable.
+        KitsuneCoin_crowdsale_address = address(KitsuneCoin_crowdsale);
 
-        // Set the `KitsuenCoinCrowdsale` contract as a minter
-        token.addMinter(Kitsuen_crowdsale_address);
+        // Set the `KitsuneCoinCrowdsale` contract as a minter
+        token.addMinter(KitsuneCoin_crowdsale_address);
         
-        // Have the `KitsuenCoinCrowdsaleDeployer` renounce its minter role.
+        // Have the `KitsuneCoinCrowdsaleDeployer` renounce its minter role.
         token.renounceMinter();
     }
 }

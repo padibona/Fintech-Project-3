@@ -15,7 +15,7 @@ contract KitsuneCoin is ERC20, ERC20Detailed, ERC20Mintable {
         string memory symbol,
         uint initial_supply
     )
-        ERC20Detailed(KitsuneCoin, KIT, 18)
+        ERC20Detailed("KitsuneCoin", "KIT", 18)
         public
     {
         // constructor can stay empty

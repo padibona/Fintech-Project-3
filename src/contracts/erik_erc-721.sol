@@ -10,11 +10,12 @@ contract Character is ERC721Full {
         string class;
         uint strength;
         uint agility;
+        uint generation;
     }
 
     mapping(uint => Character) public characters;
 
-    function mint_character(address owner, string memory name, string memory class, uint strength, uint agility, string memory tokenURI)
+    function mint_character(address owner, string memory name, string memory class, uint strength, uint agility, uint generation, string memory tokenURI)
         public
         returns (uint)
     {

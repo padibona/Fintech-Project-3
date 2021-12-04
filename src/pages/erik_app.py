@@ -4,6 +4,7 @@ from web3 import Web3
 from pathlib import Path
 from dotenv import load_dotenv
 import streamlit as st
+from character_Model import Character
 
 load_dotenv()
 
@@ -69,3 +70,10 @@ if st.button("Display Character"):
 ################################################################################
 # Mint New Character
 ################################################################################
+st.markdown("## Create a new character")
+
+character_name = st.text_input("Enter the name of the character")
+
+if st.button("Create Character"):
+    # App function to create a Character
+    contract.functions.mint_character(Character.create_new_character(character_name))

@@ -26,10 +26,11 @@ def main():
     st.sidebar.info(
         """
         This app was created by Team 1 of the Fintech Bootcamp consisting of:
-        Pete DiBona
-        Erik Larson
-        Pradeep Dahal
-        Alek Birkeland  
+        
+        Pete DiBona        
+        Erik Larson        
+        Pradeep Dahal        
+        Alek Birkeland          
         John Melvin
 """
     )

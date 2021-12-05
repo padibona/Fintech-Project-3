@@ -5,6 +5,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import streamlit as st
 from character_Model import Character
+import character_Model as model
 
 load_dotenv()
 
@@ -23,7 +24,7 @@ w3 = Web3(Web3.HTTPProvider(os.getenv("WEB3_PROVIDER_URI")))
 def load_contract():
 
     # Load Art Gallery ABI
-    with open(Path('./contracts/compiled/certificate_abi.json')) as f:
+    with open(Path('../artifacts/kitsune-721_abi.json')) as f:
         certificate_abi = json.load(f)
 
     # Set the contract address (this is the address of the deployed contract)
@@ -46,9 +47,9 @@ contract = load_contract()
 # Award Certificate
 ################################################################################
 
-# accounts = w3.eth.accounts
-# account = accounts[0]
-# student_account = st.selectbox("Select Account", options=accounts)
+accounts = w3.eth.accounts
+account = accounts[0]
+user_account = st.selectbox("Select Account", options=accounts)
 # certificate_details = st.text_input("Certificate Details", value="FinTech Certificate of Completion")
 # if st.button("Award Certificate"):
 #     contract.functions.awardCertificate(student_account, certificate_details).transact({'from': account, 'gas': 1000000})
@@ -76,4 +77,12 @@ character_name = st.text_input("Enter the name of the character")
 
 if st.button("Create Character"):
     # App function to create a Character
-    contract.functions.mint_character(Character.create_new_character(character_name))
+    new_char = model.create_new_character(character_name)
+    contract.functions.mint_character(
+        user_account,
+        new_char.name,
+        new_char.character_class,
+        new_char.strength,
+        new_char.agility,
+        new_char.generation
+    )

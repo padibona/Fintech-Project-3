@@ -8,7 +8,7 @@ import character_Model
 ast.core.services.other.set_logging_format()
 
 PAGES = {
-    "ERC-1155": character_Model,
+    "Character Model": character_Model,
 }
 
 
@@ -25,7 +25,12 @@ def main():
     st.sidebar.title("About")
     st.sidebar.info(
         """
-        This app was created by Team 1 of the Fintech Bootcamp.
+        This app was created by Team 1 of the Fintech Bootcamp consisting of:
+        Pete DiBona
+        Erik Larson
+        Pradeep Dahal
+        Alek Birkeland  
+        John Melvin
 """
     )
 

@@ -23,7 +23,7 @@ w3 = Web3(Web3.HTTPProvider(os.getenv("WEB3_PROVIDER_URI")))
 # Define the load_contract function
 def load_contract():
 
-    # Load Art Gallery ABI
+    # Load ERC 721 ABI
     with open(Path('../artifacts/kitsune-721_abi.json')) as f:
         certificate_abi = json.load(f)
 
@@ -55,17 +55,17 @@ user_account = st.selectbox("Select Account", options=accounts)
 #     contract.functions.awardCertificate(student_account, certificate_details).transact({'from': account, 'gas': 1000000})
 
 ################################################################################
-# Display Certificate
+# Display Character
 ################################################################################
-characterId = st.number_input("Enter a Certificate Token ID to display", value=0, step=1)
+characterId = st.number_input("Enter a Character ID to display", value=1, step=1)
 if st.button("Display Character"):
-    # Get the certificate owner
+    # Get the character owner
     character_owner = contract.functions.ownerOf(characterId).call()
-    st.write(f"The certificate was awarded to {character_owner}")
+    st.write(f"The character belongs to {character_owner}")
 
-    # Get the certificate's metadata
+    # Get the character's metadata
     character_uri = contract.functions.tokenURI(characterId).call()
-    st.write(f"The certificate's tokenURI metadata is {character_uri}")
+    st.write(f"The character's tokenURI metadata is {character_uri}")
 
 
 ################################################################################
@@ -77,10 +77,10 @@ character_name = st.text_input("Enter the name of the character")
 
 if st.button("Create Character"):
     # App function to create a Character
-    new_char = model.create_new_character(character_name)
+    new_char = model.Character(character_name)
     contract.functions.mint_character(
         user_account,
-        new_char.name,
+        new_char.character_name,
         new_char.character_class,
         new_char.strength,
         new_char.agility,

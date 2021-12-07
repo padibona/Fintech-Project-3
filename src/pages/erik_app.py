@@ -50,6 +50,7 @@ contract = load_contract()
 accounts = w3.eth.accounts
 account = accounts[0]
 user_account = st.selectbox("Select Account", options=accounts)
+st.text(f'User Account: {user_account}')
 # certificate_details = st.text_input("Certificate Details", value="FinTech Certificate of Completion")
 # if st.button("Award Certificate"):
 #     contract.functions.awardCertificate(student_account, certificate_details).transact({'from': account, 'gas': 1000000})
@@ -60,8 +61,8 @@ user_account = st.selectbox("Select Account", options=accounts)
 characterId = st.number_input("Enter a Character ID to display", value=1, step=1)
 if st.button("Display Character"):
     # Get the character owner
-    character_owner = contract.functions.ownerOf(characterId).call()
-    st.write(f"The character belongs to {character_owner}")
+    character_owner_address = contract.functions.ownerOf(characterId).call()
+    st.write(f"The character belongs to {character_owner_address}")
 
     # Get the character's metadata
     character_uri = contract.functions.tokenURI(characterId).call()
@@ -78,11 +79,15 @@ character_name = st.text_input("Enter the name of the character")
 if st.button("Create Character"):
     # App function to create a Character
     new_char = model.Character(character_name)
-    contract.functions.mint_character(
+    st.text(f'Name: {new_char.character_name}, class: {new_char.character_class}, Agility: {new_char.agility}, Str: {new_char.strength}, Gen: {new_char.generation}')
+
+    new_char_id = contract.functions.mint_character(
         user_account,
         new_char.character_name,
         new_char.character_class,
         new_char.strength,
         new_char.agility,
         new_char.generation
-    )
+    ).transact({'from': user_account, 'gas': 1000000})
+    st.text(f'Your new Character ID is {new_char_id}.')
+    # st.text(f'The address of the character is {owner}.')

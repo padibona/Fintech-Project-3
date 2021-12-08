@@ -49,11 +49,39 @@ contract = load_contract()
 
 accounts = w3.eth.accounts
 account = accounts[0]
-user_account = st.selectbox("Select Account", options=accounts)
-st.text(f'User Account: {user_account}')
+user_account = st.selectbox("Select the account you would like to receive the ERC-721 into.", options=accounts)
+# st.text(f'User Account: {user_account}')
 # certificate_details = st.text_input("Certificate Details", value="FinTech Certificate of Completion")
 # if st.button("Award Certificate"):
 #     contract.functions.awardCertificate(student_account, certificate_details).transact({'from': account, 'gas': 1000000})
+
+################################################################################
+# Mint New Character
+################################################################################
+st.markdown("## Create a new character")
+
+character_name = st.text_input("Enter the Name of the character")
+character_class = st.text_input("Enter the Class of the character")
+agility = st.number_input("Enter the Agility of the character", step=1)
+strength = st.number_input("Enter the Strength of the character", step=1)
+generation = st.number_input("Enter the generation of the character", step=1)
+
+
+if st.button("Create Character"):
+    # App function to create a Character
+    new_char = model.Character(character_name, character_class, agility, strength, generation)
+    st.text(f'Name: {new_char.character_name}, class: {new_char.character_class}, Agility: {new_char.agility}, Str: {new_char.strength}, Gen: {new_char.generation}')
+
+    new_char_id = contract.functions.mint_character(
+        user_account,
+        new_char.character_name,
+        new_char.character_class,
+        new_char.strength,
+        new_char.agility,
+        new_char.generation
+    ).transact({'from': user_account, 'gas': 1000000})
+    st.text(f'Your new Character ID is {new_char_id}.')
+    # st.text(f'The address of the character is {owner}.')
 
 ################################################################################
 # Display Character
@@ -69,25 +97,4 @@ if st.button("Display Character"):
     st.write(f"The character's tokenURI metadata is {character_uri}")
 
 
-################################################################################
-# Mint New Character
-################################################################################
-st.markdown("## Create a new character")
 
-character_name = st.text_input("Enter the name of the character")
-
-if st.button("Create Character"):
-    # App function to create a Character
-    new_char = model.Character(character_name)
-    st.text(f'Name: {new_char.character_name}, class: {new_char.character_class}, Agility: {new_char.agility}, Str: {new_char.strength}, Gen: {new_char.generation}')
-
-    new_char_id = contract.functions.mint_character(
-        user_account,
-        new_char.character_name,
-        new_char.character_class,
-        new_char.strength,
-        new_char.agility,
-        new_char.generation
-    ).transact({'from': user_account, 'gas': 1000000})
-    st.text(f'Your new Character ID is {new_char_id}.')
-    # st.text(f'The address of the character is {owner}.')

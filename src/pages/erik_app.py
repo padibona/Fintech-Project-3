@@ -80,7 +80,7 @@ if st.button("Create Character"):
         new_char.agility,
         new_char.generation
     ).transact({'from': user_account, 'gas': 1000000})
-    st.text(f'Your new Character ID is {new_char_id}.')
+    st.text(f'Your new Character ID is {characterId}.')
     # st.text(f'The address of the character is {owner}.')
 
 ################################################################################
@@ -95,6 +95,6 @@ if st.button("Display Character"):
     # Get the character's metadata
     character_uri = contract.functions.tokenURI(characterId).call()
     st.write(f"The character's tokenURI metadata is {character_uri}")
-
+ 
 
 

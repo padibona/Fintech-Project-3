@@ -2,13 +2,13 @@
 import streamlit as st
 
 import awesome_streamlit as ast
-# import erik_app
-import character_Model
+import erik_app
+# import character_Model
 
 ast.core.services.other.set_logging_format()
 
 PAGES = {
-    "Character Model": character_Model,
+    "ERC-721 - Mint an NFT!": erik_app,
 }
 
 

@@ -80,7 +80,7 @@ if st.button("Create Character"):
         new_char.agility,
         new_char.generation
     ).transact({'from': user_account, 'gas': 1000000})
-    st.text(f'Your new Character ID is {characterId}.')
+    st.text(f'Your new Character ID is {new_char_id}.')
     # st.text(f'The address of the character is {owner}.')
 
 ################################################################################

@@ -36,4 +36,6 @@
 * Did not get around to Adding in the ERC-1155 functionality.
 * Was not able to add in the questing funtionality.
 
+# Screenshot of high level application which has the erik_app.py as the main window.
+
 ![alt=””](src/images/broken_app.png)

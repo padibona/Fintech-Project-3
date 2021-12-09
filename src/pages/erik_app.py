@@ -95,6 +95,8 @@ if st.button("Display Character"):
     # Get the character's metadata
     character_uri = contract.functions.tokenURI(characterId).call()
     st.write(f"The character's tokenURI metadata is {character_uri}")
+    character_attributes = contract.functions.characters(characterId).call()
+    st.write(f'Character Name: {character_attributes[0]}, Character Class: {character_attributes[1]}')
  
 
 

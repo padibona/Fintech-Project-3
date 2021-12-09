@@ -69,7 +69,7 @@ generation = st.number_input("Enter the generation of the character", step=1)
 
 if st.button("Create Character"):
     # App function to create a Character
-    new_char = model.Character(character_name, character_class, agility, strength, generation)
+    new_char = model.Character(character_name, character_class, strength, agility, generation)
     st.text(f'Name: {new_char.character_name}, class: {new_char.character_class}, Agility: {new_char.agility}, Str: {new_char.strength}, Gen: {new_char.generation}')
 
     new_char_id = contract.functions.mint_character(
